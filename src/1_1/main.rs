@@ -7,8 +7,7 @@ fn main() {
         .enumerate()
         .filter(|(i, _)| i % 2 == 0)
         .map(|(_, v)| v.to_string())
-        .collect::<Vec<String>>()
-        .join("");
+        .collect::<String>();
 
     println!("{}", result);
 }
