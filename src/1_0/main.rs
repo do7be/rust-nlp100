@@ -1,9 +1,11 @@
 fn main() {
     let str = "stressed";
-    let chars = str.chars().collect::<Vec<char>>();
-    let result = chars
+    let result = str
+        .chars()
+        .rev()
+        .collect::<Vec<char>>()
         .iter()
-        .fold(String::new(), |acc, v| v.to_string() + &acc);
+        .collect::<String>();
 
     println!("{}", result);
 }
