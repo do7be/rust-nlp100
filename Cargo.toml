@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+rand="0.3.14"
 
 
 [[bin]]
@@ -43,3 +44,7 @@ path = "src/1_7/main.rs"
 [[bin]]
 name = "1_8"
 path = "src/1_8/main.rs"
+
+[[bin]]
+name = "1_9"
+path = "src/1_9/main.rs"
