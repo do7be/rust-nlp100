@@ -76,3 +76,7 @@ path = "src/2_15/main.rs"
 [[bin]]
 name = "2_16"
 path = "src/2_16/main.rs"
+
+[[bin]]
+name = "2_17"
+path = "src/2_17/main.rs"
