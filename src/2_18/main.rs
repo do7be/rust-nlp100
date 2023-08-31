@@ -8,25 +8,27 @@ fn main() {
     let mut result = str
         .lines()
         .map(|v| {
-            v.split('\t')
+            let a = v
+                .split('\t')
                 .map(|v| v.to_string())
-                .collect::<Vec<String>>()
+                .collect::<Vec<String>>();
+            (
+                a[0].to_string(),
+                a[1].to_string(),
+                a[2].parse().unwrap(),
+                a[3].parse().unwrap(),
+            )
         })
-        .collect::<Vec<Vec<String>>>();
+        .collect::<Vec<(String, String, usize, usize)>>();
 
-    // TODO: refactoring
-    result.sort_by(|a, b| {
-        b[2].parse::<usize>()
-            .unwrap()
-            .cmp(&a[2].parse::<usize>().unwrap())
-    });
+    result.sort_by(|a, b| b.2.cmp(&a.2));
 
     let path = Path::new("./result.txt");
     let mut file = fs::File::create(path).unwrap();
     file.write_all(
         result
             .into_iter()
-            .map(|v| v.join("\t"))
+            .map(|v| vec![v.0, v.1, v.2.to_string(), v.3.to_string()].join("\t"))
             .collect::<Vec<String>>()
             .join("\n")
             .as_bytes(),
