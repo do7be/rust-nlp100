@@ -12,7 +12,7 @@ fn main() {
     let end_reg = Regex::new(r#"^\}\}"#).unwrap();
     let reg = Regex::new(r#"\|(.+) *= *(.+)"#).unwrap();
 
-    let mut result = HashMap::new();
+    let mut result: HashMap<&str, String> = HashMap::new();
 
     let start = contents
         .lines()
@@ -24,15 +24,20 @@ fn main() {
         .map(|v| v.to_string())
         .collect::<Vec<String>>();
 
+    let mut previous_key = "";
     for v in &contents {
-        let capture = match reg.captures(v) {
-            Some(cap) => cap,
-            None => continue,
+        match reg.captures(v) {
+            Some(cap) => {
+                let key = cap.get(1).unwrap().as_str();
+                let field = cap.get(2).unwrap().as_str();
+                result.insert(key, field.to_string());
+                previous_key = key;
+            }
+            None => {
+                let field = result.get(previous_key).unwrap().to_string() + "\n" + v;
+                result.insert(previous_key, field);
+            }
         };
-
-        let key = capture.get(1).unwrap().as_str();
-        let field = capture.get(2).unwrap().as_str();
-        result.insert(key, field);
     }
 
     println!("{:?}", result);
