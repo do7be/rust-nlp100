@@ -36,7 +36,7 @@ fn main() {
 }
 
 fn get_template(contents: &str) -> HashMap<String, String> {
-    let reg = Regex::new(r#"\|([^ ]+) *= *([^ ]+)"#).unwrap();
+    let reg = Regex::new(r#"\|([^ ]+) *= *(.+)"#).unwrap();
     let start_reg = Regex::new(r#"^\{\{基礎情報"#).unwrap();
     let end_reg = Regex::new(r#"^\}\}"#).unwrap();
 
