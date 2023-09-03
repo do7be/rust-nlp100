@@ -46,8 +46,16 @@ async fn main() -> Result<(), reqwest::Error> {
 
     println!("国旗画像：{}", file_name);
 
-    let url = "https://www.mediawiki.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url&titles=File:".to_string() + file_name;
-
+    let url = "https://www.mediawiki.org/w/api.php";
+    let titles = "File:".to_string() + file_name;
+    let params = [
+        ("action", "query"),
+        ("format", "json"),
+        ("prop", "imageinfo"),
+        ("iiprop", "url"),
+        ("titles", titles.as_str()),
+    ];
+    let url = reqwest::Url::parse_with_params(url, &params).unwrap();
     let body = reqwest::get(url).await?.json::<ResponseBody>().await?;
 
     println!("{:?}", body.query.pages["-1"].imageinfo[0].url);
